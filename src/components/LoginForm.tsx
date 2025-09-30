@@ -1,7 +1,12 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 export default function LoginForm() {
+  const [isSignup, setIsSignup] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+
+  const [error, setError] = useState<string | null>(null);
+
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-indigo-50 dark:from-zinc-950 dark:via-purple-950/20 dark:to-indigo-950/20 px-4 py-20 overflow-hidden">
       {/* Animated Background Elements */}
@@ -44,32 +49,82 @@ export default function LoginForm() {
             </p>
           </div>
 
-          {/* Google Sign In Button */}
-          <button
-            className="group w-full flex items-center justify-center gap-3 bg-white dark:bg-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-700 text-slate-700 dark:text-slate-200 font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out border border-slate-200 dark:border-zinc-700 hover:border-purple-300 dark:hover:border-purple-600 hover:-translate-y-0.5 active:translate-y-0"
-            onClick={() => signIn("google")}
+          {/* Email/password form */}
+          <form
+            className="w-full space-y-4 mb-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              alert(
+                isSignup
+                  ? `Signup is disabled. (Name: ${form.name}, Email: ${form.email})`
+                  : `Login is disabled. (Email: ${form.email})`
+              );
+            }}
           >
-            {/* Google Icon */}
-            <div className="flex-shrink-0">
-              <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clipPath="url(#clip0_17_40)">
-                  <path d="M47.532 24.552c0-1.638-.147-3.204-.419-4.704H24.468v9.021h13.011c-.561 3.021-2.237 5.583-4.771 7.299v6.06h7.701c4.505-4.151 7.123-10.263 7.123-17.676z" fill="#4285F4"/>
-                  <path d="M24.468 48c6.48 0 11.926-2.147 15.902-5.841l-7.701-6.06c-2.137 1.438-4.872 2.292-8.201 2.292-6.308 0-11.646-4.263-13.561-10.021H2.563v6.292C6.522 43.982 14.799 48 24.468 48z" fill="#34A853"/>
-                  <path d="M10.907 28.37c-.521-1.438-.819-2.979-.819-4.37s.298-2.932.819-4.37v-6.292H2.563A23.97 23.97 0 000 24c0 3.979.957 7.75 2.563 11.062l8.344-6.692z" fill="#FBBC05"/>
-                  <path d="M24.468 9.871c3.53 0 6.684 1.216 9.176 3.601l6.872-6.872C36.39 2.147 30.948 0 24.468 0 14.799 0 6.522 4.018 2.563 10.938l8.344 6.292c1.915-5.758 7.253-10.021 13.561-10.021z" fill="#EA4335"/>
-                </g>
-                <defs>
-                  <clipPath id="clip0_17_40">
-                    <rect width="48" height="48" fill="white"/>
-                  </clipPath>
-                </defs>
-              </svg>
+            {isSignup && (
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Name</label>
+                <input
+                  type="text"
+                  className="w-full rounded-xl border border-slate-300 dark:border-zinc-700 bg-white/70 dark:bg-zinc-800/70 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  value={form.name}
+                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  placeholder="Your name"
+                />
+              </div>
+            )}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
+              <input
+                type="email"
+                required
+                className="w-full rounded-xl border border-slate-300 dark:border-zinc-700 bg-white/70 dark:bg-zinc-800/70 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                value={form.email}
+                onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                placeholder="you@example.com"
+              />
             </div>
-            <span className="text-base">Continue with Google</span>
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Password</label>
+              <input
+                type="password"
+                required
+                minLength={6}
+                className="w-full rounded-xl border border-slate-300 dark:border-zinc-700 bg-white/70 dark:bg-zinc-800/70 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                value={form.password}
+                onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+                placeholder="••••••••"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out"
+            >
+              {isSignup ? "Create account" : "Sign in"}
+            </button>
+          </form>
+
+          {/* Separator */}
+
+
+          {/* Toggle Signin/Signup */}
+          <div className="mt-4 text-sm text-slate-600 dark:text-slate-300">
+            {isSignup ? (
+              <span>
+                Already have an account?{" "}
+                <button className="text-purple-600 dark:text-purple-400 font-medium hover:underline" onClick={() => { setIsSignup(false); setError(null); }}>
+                  Sign in
+                </button>
+              </span>
+            ) : (
+              <span>
+                New here?{" "}
+                <button className="text-purple-600 dark:text-purple-400 font-medium hover:underline" onClick={() => { setIsSignup(true); setError(null); }}>
+                  Create an account
+                </button>
+              </span>
+            )}
+          </div>
 
           {/* Footer */}
           <div className="mt-8 text-center">

@@ -1,145 +1,117 @@
 "use client";
-import React from 'react';
-import { cn } from "@/lib/utils";
+import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import WavyBackground from "@/components/ui/WavyBackground";
+import Image from "next/image";
 
-function Hero() {
+export default function Hero() {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen text-center bg-zinc-50 dark:bg-zinc-950 px-4 py-20 overflow-hidden">
-      {/* Purple Wavy Background */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="absolute inset-0 z-0"
-      >
-        <svg
-          className="absolute inset-0 w-full h-full"
-          viewBox="0 0 1200 800"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
-        >
-          <defs>
-            <linearGradient id="purpleWave1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgb(88 28 135)" stopOpacity="0.1" />
-              <stop offset="50%" stopColor="rgb(67 56 202)" stopOpacity="0.15" />
-              <stop offset="100%" stopColor="rgb(107 33 168)" stopOpacity="0.1" />
-            </linearGradient>
-            <linearGradient id="purpleWave2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgb(107 33 168)" stopOpacity="0.05" />
-              <stop offset="50%" stopColor="rgb(79 70 229)" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="rgb(88 28 135)" stopOpacity="0.05" />
-            </linearGradient>
-          </defs>
-          
-          {/* Large flowing waves */}
-          <path
-            d="M0,200 Q300,100 600,200 T1200,200 L1200,0 L0,0 Z"
-            fill="url(#purpleWave1)"
-          />
-          <path
-            d="M0,400 Q200,300 400,400 T800,400 Q1000,350 1200,400 L1200,0 L0,0 Z"
-            fill="url(#purpleWave2)"
-          />
-          
-          {/* Subtle wave pattern overlay */}
-          <pattern id="wave-pattern" patternUnits="userSpaceOnUse" width="120" height="80">
-            <path
-              d="M0,40 Q30,20 60,40 T120,40"
-              stroke="rgb(59 7 100)"
-              strokeWidth="1"
-              fill="none"
-              opacity="0.3"
-              className="dark:stroke-purple-950"
-            />
-            <path
-              d="M0,0 Q30,20 60,0 T120,0"
-              stroke="rgb(88 28 135)"
-              strokeWidth="0.5"
-              fill="none"
-              opacity="0.2"
-              className="dark:stroke-purple-900"
-            />
-            <path
-              d="M0,80 Q30,60 60,80 T120,80"
-              stroke="rgb(107 33 168)"
-              strokeWidth="0.5"
-              fill="none"
-              opacity="0.2"
-              className="dark:stroke-purple-800"
-            />
-          </pattern>
-          <rect width="100%" height="100%" fill="url(#wave-pattern)" opacity="0.4" />
-        </svg>
-      </motion.div>
+    <section className="relative flex flex-col items-center justify-center min-h-screen text-center bg-gradient-to-br from-zinc-50 via-purple-50/30 to-zinc-50 dark:from-zinc-950 dark:via-purple-950/20 dark:to-zinc-950 px-4 py-20 overflow-hidden">
+      {/* Wavy Background */}
+      <WavyBackground className="absolute inset-0 z-0 overflow-hidden" />
 
-      {/* Radial gradient for the container to give a faded look */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-zinc-50 [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black_70%)] dark:bg-zinc-950"
-      ></motion.div>
+        className="pointer-events-none absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-50/50 via-purple-50/20 to-zinc-50/50 [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black_70%)] dark:from-zinc-950/50 dark:via-purple-950/10 dark:to-zinc-950/50"
+      />
 
-      <div className="relative z-10 max-w-4xl space-y-8 px-4 sm:px-6 lg:px-8">
-        {/* Subheading */}
-        <motion.h3
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 font-medium tracking-wide"
-        >
-          Keep yourself safe and organized
-        </motion.h3>
+      <div className="absolute top-6 left-6 z-20">
+        <Image
+          src="/logo.png"
+          alt="Safence Logo"
+          width={192}
+          height={48}
+          priority
+          sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, 64px"
+          className="h-12 w-auto sm:h-14 md:h-16 drop-shadow-lg"
+        />
+      </div>
 
-        {/* Main Title with Dark Purple to Indigo to Purple Gradient */}
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl space-y-10 px-4 sm:px-6 lg:px-8">
         <motion.h1
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold leading-tight tracking-tighter drop-shadow-lg dark:drop-shadow-xl"
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold leading-[0.95] tracking-tighter"
         >
-          <span className="text-purple-800 dark:text-purple-500">Safe</span>
-          <span className="text-white dark:text-white">nce</span>
+          <span className="text-purple-700 dark:text-purple-400 drop-shadow-2xl">
+            Safe
+          </span>
+          <span className="bg-gradient-to-br from-zinc-800 to-zinc-900 dark:from-white dark:to-zinc-100 bg-clip-text text-transparent drop-shadow-2xl">
+            nce
+          </span>
         </motion.h1>
 
-        {/* Description */}
+
         <motion.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className="text-lg sm:text-xl md:text-2xl text-zinc-700 dark:text-zinc-300 max-w-2xl mx-auto leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-xl sm:text-2xl md:text-3xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 to-zinc-800 dark:from-zinc-300 dark:to-zinc-400 max-w-3xl mx-auto leading-relaxed"
         >
-          Your personal assistant to keep yourself safe from scammers and organized with your important information.
+          Your personal guardian against scams
         </motion.p>
 
-        {/* Call to Action Button - Updated to match headline gradient */}
+        <motion.p
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed"
+        >
+          Stay organized and protected with intelligent email analysis,
+          fraud detection, and secure information management.
+        </motion.p>
+
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-          className="pt-8"
+          transition={{ duration: 0.6, delay: 1 }}
+          className="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link href="/login" passHref>
+          <Link href="/login" passHref legacyBehavior>
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(0,0,0,0.25)" }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center justify-center px-12 py-5
-                         bg-purple-800 dark:bg-purple-500
-                         text-white dark:text-white font-bold text-lg rounded-2xl
-                         overflow-hidden shadow-2xl transition-all duration-300 ease-out
-                         hover:ring-4 hover:ring-purple-400/50 dark:hover:ring-purple-300/50"
+              whileHover={{
+                scale: 1.03,
+                boxShadow: "0 20px 40px rgba(124, 58, 237, 0.3)",
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="group relative inline-flex items-center justify-center px-10 py-4
+                         bg-gradient-to-br from-purple-700 to-purple-900 dark:from-purple-500 dark:to-purple-700
+                         text-white font-bold text-lg rounded-2xl
+                         overflow-hidden shadow-xl transition-all duration-300 ease-out
+                         hover:shadow-2xl hover:shadow-purple-500/50 border border-purple-600/20"
+              type="button"
             >
-              <span className="relative z-10">Get Started</span>
-              {/* Subtle hover effect for button */}
-              <span className="absolute inset-0 w-full h-full bg-purple-900 dark:bg-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative z-10 flex items-center gap-2">
+                Get Started
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-purple-600 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </motion.button>
           </Link>
+          
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="group inline-flex items-center justify-center px-10 py-4
+                       bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm
+                       text-purple-800 dark:text-purple-300 font-semibold text-lg rounded-2xl
+                       border-2 border-purple-200 dark:border-purple-800/50
+                       hover:bg-purple-50 dark:hover:bg-purple-950/50
+                       hover:border-purple-300 dark:hover:border-purple-700
+                       shadow-lg transition-all duration-300"
+            type="button"
+          >
+            Learn More
+          </motion.button>
         </motion.div>
       </div>
     </section>
   );
 }
-
-export default Hero;

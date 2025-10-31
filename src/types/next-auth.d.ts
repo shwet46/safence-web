@@ -1,8 +1,9 @@
 import { DefaultSession, DefaultUser } from 'next-auth';
+import { OAuthConfig } from 'next-auth/providers';
 
 declare module 'next-auth' {
   interface NextAuthConfig {
-    providers: Array<Provider>;
+    providers: Array<Provider | OAuthConfig>;
     session?: {
       strategy?: 'jwt' | 'database';
       maxAge?: number;
@@ -35,9 +36,22 @@ declare module 'next-auth' {
     expires?: string;
   }
 
+  interface Account {
+    provider: string;
+    type: string;
+    providerAccountId: string;
+    accessToken?: string;
+    refreshToken?: string;
+    expires_at?: number;
+    token_type?: string;
+    scope?: string;
+    id_token?: string;
+  }
+
   interface User extends DefaultUser {
     id: string;
     username: string | null;
+    oauthProvider?: string;
   }
 }
 

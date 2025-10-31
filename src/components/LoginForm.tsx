@@ -105,7 +105,22 @@ export default function LoginForm() {
           </form>
 
           {/* Separator */}
+          <div className="relative flex items-center justify-center w-full my-4">
+            <span className="absolute inset-x-0 h-px bg-slate-300 dark:bg-zinc-700"></span>
+            <span className="relative px-4 text-sm text-slate-500 dark:text-slate-400 bg-white dark:bg-zinc-900">
+              Or continue with
+            </span>
+          </div>
 
+          {/* OAuth Login */}
+          <div className="w-full">
+            <button
+              onClick={() => alert("OAuth Login Placeholder")}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ease-out"
+            >
+              Sign in with Google
+            </button>
+          </div>
 
           {/* Toggle Signin/Signup */}
           <div className="mt-4 text-sm text-slate-600 dark:text-slate-300">
